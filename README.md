@@ -29,7 +29,7 @@ flume与kafka集成，kafka的生产者作为flume的sink，用于flume向kafka�
 
     拷贝到$FLUME_HOME/plugins.d/flume-kafka/libext/目录下
   
-4.  配置flume的properties（只列出sink部分）
+4.  创建配置文件：$FLUME_HOME/conf/test.properties
     ```
         agent.sources = avroSrc
         agent.channels = memoryChannel
@@ -51,9 +51,11 @@ flume与kafka集成，kafka的生产者作为flume的sink，用于flume向kafka�
         agent.channels.memoryChannel.type = memory
         agent.channels.memoryChannel.capacity = 100
     ```
-
+    此配置使用flume自带的avro作为source类型，使用自定义的KafkaSink作为sink，使用memory作为channel
+    
 5.  启动flume
 
     ```
-    $FLUME_HOME/bin/flume-ng agent -n agent -c conf -f conf/avro-kafka.properties
+    cd $FLUME_HOME
+    $FLUME_HOME/bin/flume-ng agent -n agent -c conf -f conf/test.properties
     ```

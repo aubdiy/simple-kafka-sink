@@ -30,27 +30,30 @@ flume与kafka集成，kafka的生产者作为flume的sink，用于flume向kafka�
     拷贝到$FLUME_HOME/plugins.d/flume-kafka/libext/目录下
   
 4.  配置flume的properties（只列出sink部分）
-```
-agent.sources = avroSrc
-agent.channels = memoryChannel
-agent.sinks = kafkaSink
-//source配置
-agent.sources.avroSrc.type = avro
-agent.sources.avroSrc.bind = server-166
-agent.sources.avroSrc.port= 4141
-agent.sources.avroSrc.channels = memoryChannel
-//sink配置
-//kafka的topic名字
-agent.sinks.kafkaSink.topic = log_website
-//sink类型（全路径）
-agent.sinks.kafkaSink.type = cn._23hours.KafkaSink
-//kafka集群地址
-agent.sinks.kafkaSink.metadata.broker.list = server-166:9092
-agent.sinks.kafkaSink.channel = memoryChannel
-
-agent.channels.memoryChannel.type = memory
-agent.channels.memoryChannel.capacity = 100
-```
+    ```
+        agent.sources = avroSrc
+        agent.channels = memoryChannel
+        agent.sinks = kafkaSink
+        //source配置
+        agent.sources.avroSrc.type = avro
+        agent.sources.avroSrc.bind = server-166
+        agent.sources.avroSrc.port= 4141
+        agent.sources.avroSrc.channels = memoryChannel
+        //sink配置
+        //kafka的topic名字
+        agent.sinks.kafkaSink.topic = log_website
+        //sink类型（全路径）
+        agent.sinks.kafkaSink.type = cn._23hours.KafkaSink
+        //kafka集群地址
+        agent.sinks.kafkaSink.metadata.broker.list = server-166:9092
+        agent.sinks.kafkaSink.channel = memoryChannel
+        
+        agent.channels.memoryChannel.type = memory
+        agent.channels.memoryChannel.capacity = 100
+    ```
 
 5.  启动flume
+
+    ```
     $FLUME_HOME/bin/flume-ng agent -n agent -c conf -f conf/avro-kafka.properties
+    ```
